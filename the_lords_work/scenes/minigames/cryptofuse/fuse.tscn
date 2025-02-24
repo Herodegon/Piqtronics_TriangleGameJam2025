@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://u6scxdctahjn"]
+[gd_scene load_steps=8 format=3 uid="uid://u6scxdctahjn"]
 
 [ext_resource type="Script" path="res://Scripts/Minigames/cryptofuse/Fuse.gd" id="1_wph1i"]
 [ext_resource type="Texture2D" uid="uid://bjrvs0ihnc463" path="res://assets/CryptoFuse/Fuses/wire_bad.png" id="2_vcs38"]
@@ -36,6 +36,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="ImageTexture" id="ImageTexture_tbymk"]
+
 [node name="Fuse" type="Node2D"]
 script = ExtResource("1_wph1i")
 
@@ -67,3 +69,6 @@ offset_top = 1.0
 offset_right = 107.0
 offset_bottom = 41.0
 text = "C30"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = SubResource("ImageTexture_tbymk")
