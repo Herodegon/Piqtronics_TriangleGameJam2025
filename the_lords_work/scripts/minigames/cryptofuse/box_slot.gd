@@ -12,4 +12,4 @@ func spawn(hc: bool):
 	set_contacts(hc)
 
 func _ready():
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pass

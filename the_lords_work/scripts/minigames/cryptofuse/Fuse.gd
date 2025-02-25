@@ -33,9 +33,21 @@ func set_state(s: int):
 	else:
 		$Break.visible = true
 
+func set_data(data: Dictionary):
+	set_color(data["color"])
+	set_type(data["type"])
+	set_break_pos(data["break_pos"])
+	set_state(data["state"])
+
+func get_data():
+	var data = {}
+	data["color"] = cover_color
+	data["type"] = type
+	data["break_pos"] = break_pos
+	data["state"] = good
+	return data
 
 func randomize(s: int):
-	z_index = 100  # Bring Fuse above everything else
 	var colors = [Color.BLUE, Color.DARK_GREEN, Color.DARK_RED, Color.DARK_VIOLET, Color.DARK_GOLDENROD]
 	var color_choice = colors[randi() % colors.size()]
 	set_color(color_choice)
@@ -56,5 +68,5 @@ func randomize(s: int):
 	else:
 		set_state(s)
 func _ready():
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	pass
 	
