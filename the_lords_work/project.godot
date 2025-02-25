@@ -11,12 +11,21 @@ config_version=5
 [application]
 
 config/name="Piqtronics Triangle Game Jam 2025"
+run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [dotnet]
 
 project/assembly_name="Piqtronics Triangle Game Jam 2025"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
 
 [rendering]
 

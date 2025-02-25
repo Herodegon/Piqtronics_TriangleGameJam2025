@@ -1,11 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://cr7j2k5lm8h5b"]
+[gd_scene load_steps=5 format=3 uid="uid://cr7j2k5lm8h5b"]
+
+[ext_resource type="PackedScene" uid="uid://c1puah2w20d23" path="res://user_interface.tscn" id="1_83yj3"]
+[ext_resource type="Script" path="res://main.gd" id="1_n4jhj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_x6wbo"]
 size = Vector3(60, 2, 60)
 
-[sub_resource type="BoxMesh" id="BoxMesh_ls5kc"]
+[sub_resource type="BoxMesh" id="BoxMesh_u0cem"]
+size = Vector3(60, 2, 60)
 
 [node name="Main" type="Node"]
+script = ExtResource("1_n4jhj")
 
 [node name="Ground" type="StaticBody3D" parent="."]
 collision_layer = 4
@@ -15,4 +20,6 @@ collision_mask = 0
 shape = SubResource("BoxShape3D_x6wbo")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
-mesh = SubResource("BoxMesh_ls5kc")
+mesh = SubResource("BoxMesh_u0cem")
+
+[node name="UserInterface" parent="." instance=ExtResource("1_83yj3")]
