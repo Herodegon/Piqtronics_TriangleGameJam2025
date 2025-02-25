@@ -22,6 +22,8 @@ func set_color(c: Color):
 	$Cover.color = c
 	$Backplate.color = c
 	$Break.color = c
+	$Backplate.color.a = 1
+	$Break.color.a = 1
 func set_opacity(a: float):
 	cover_color.a = a
 	$Cover.color = cover_color

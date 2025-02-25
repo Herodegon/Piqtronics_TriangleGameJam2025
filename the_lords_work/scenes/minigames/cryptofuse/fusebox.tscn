@@ -10,9 +10,9 @@ mouse_filter = 1
 script = ExtResource("1_l2pu5")
 fuse_assembly_scene = ExtResource("2_5unip")
 fusebox_pos = Vector2(90, 90)
-toolbox_pos = Vector2(1200, 270)
+toolbox_pos = Vector2(600, 90)
 
 [node name="Problems" type="Label" parent="."]
-layout_mode = 0
-offset_right = 40.0
+layout_mode = 2
+offset_right = 1.0
 offset_bottom = 23.0

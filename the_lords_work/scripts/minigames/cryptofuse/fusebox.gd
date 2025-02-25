@@ -1,10 +1,13 @@
 extends Control
+signal player_win
 @export var fuse_assembly_scene: PackedScene
 @export var fusebox_pos: Vector2
 @export var toolbox_pos: Vector2
+var broken_count
 # color, type
 var broken_fuses = []
-
+var box_assemblies = []
+var toolbox_assemblies = []
 # Called when the node enters the scene tree for the first time.
 
 
@@ -36,6 +39,7 @@ func spawn_box_fuses(start_pos: Vector2, num_broken: int, x_spawn: int, y_spawn:
 			if not fuse.good:
 				broken_fuses.append([fuse.cover_color, fuse.type])
 			assembly.add_to_group("box_assemblies")
+			box_assemblies.append(assembly)
 			add_child(assembly)		
 			
 			fuse_num += 1			
@@ -93,6 +97,7 @@ func spawn_toolbox_fuses(start_pos: Vector2, num_fuses: int, num_broken: int, x_
 					assembly.generate_random_fuse(1)
 				
 			assembly.add_to_group("toolbox_assemblies")
+			toolbox_assemblies.append(assembly)
 			add_child(assembly)
 					
 			fuse_num += 1
@@ -103,8 +108,61 @@ func spawn_toolbox_fuses(start_pos: Vector2, num_fuses: int, num_broken: int, x_
 		cur_spawn_pos.y = start_pos.y
 	print(broken_fuses)
 
+func win():
+	$Problems.text = "All fuses fixed!"
+	$Problems.visible = true
+	player_win.emit()
+
+func update_broken_count():
+	broken_count = 0
+	for assembly in box_assemblies:
+		if not assembly.has_fuse or not assembly.fuse.good:
+			broken_count += 1
+	$Problems.text = "Broken Fuses: %d" % broken_count
+	$Problems.visible = true
+
+	if broken_count == 0:
+		print("All fuses fixed!")
+		win()
+
+func _notification(what: int):
+	if what != NOTIFICATION_DRAG_END:
+		return
+	var viewport = get_viewport()
+	if not viewport.gui_is_drag_successful():
+		return
+	update_broken_count()
+		
+		# var box_assembly = drag_data.get_parent()
+		# var fuse_data = box_assembly.get_fuse_data()
+		# var fuse_color = fuse_data["color"]
+		# var fuse_type = fuse_data["type"]
+		# var fuse_good = fuse_data["state"]
+		# var fuse_break_pos = fuse_data["break_pos"]
+		
+		# for assembly in get_tree().get_nodes_in_group("toolbox_assemblies"):
+		# 	if assembly.can_drop_data(fuse_color, fuse_type, fuse_good):
+		# 		assembly.drop_data(fuse_color, fuse_type, fuse_good, fuse_break_pos)
+		# 		break
+		# box_assembly.remove_fuse()
+		# box_assembly.queue_free()
+		# if not get_tree().get_nodes_in_group("box_assemblies"):
+		# 	print("All fuses fixed!")
+	
+
+func reset():
+	for assembly in box_assemblies:
+		assembly.reset_fuse()
+	for assembly in toolbox_assemblies:
+		assembly.reset_fuse()
+	update_broken_count()
 
 func _ready():
-	
-	spawn_box_fuses(fusebox_pos, 10, 5, 5)
+	spawn_box_fuses(fusebox_pos, 10, 6, 6)
+	toolbox_pos = Vector2(fusebox_pos.x + 650, fusebox_pos.y)
 	spawn_toolbox_fuses(toolbox_pos, 15, 10, 5, 5)
+	update_broken_count()
+
+func _process(_delta):
+	if Input.is_action_pressed("reset_minigame"):
+		reset()
