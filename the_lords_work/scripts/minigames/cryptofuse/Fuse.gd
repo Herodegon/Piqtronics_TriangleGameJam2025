@@ -1,9 +1,11 @@
-extends Node2D
+extends Control
 
 @export var cover_color: Color
 @export var cover_opacity: float = 0.5
 @export var type: int
 @export var good: int
+var slot: Control
+
 #-27 to 
 func set_type(t: int):
 	type = t
@@ -29,8 +31,17 @@ func set_state(s: int):
 	else:
 		$Break.visible = true
 
+func set_slot(s: Control):
+	slot = s
+func get_slot():
+	return slot
+
+func _get_drag_data(_at_position):
+	return self
+	
+
 func randomize(s: int, pos: Vector2):
-	var colors = [Color.BLUE, Color.DARK_GREEN, Color.RED, Color.PURPLE, Color.DARK_GOLDENROD]
+	var colors = [Color.BLUE, Color.DARK_GREEN, Color.DARK_RED, Color.DARK_VIOLET, Color.DARK_GOLDENROD]
 	var color_choice = colors[randi() % colors.size()]
 	set_color(color_choice)
 	
@@ -46,15 +57,10 @@ func randomize(s: int, pos: Vector2):
 	if s == 2:
 		set_state(randi() % 2)
 	else:
-		set_state(s)	
+		set_state(s)
 	self.position = pos
 	
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

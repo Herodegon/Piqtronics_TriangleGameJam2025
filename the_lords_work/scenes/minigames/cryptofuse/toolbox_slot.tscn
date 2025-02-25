@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ocpqcidrh1nd"]
+
+[ext_resource type="Script" path="res://scripts/minigames/cryptofuse/toolbox_slot.gd" id="1_x0bp7"]
+[ext_resource type="Texture2D" uid="uid://dkhpb8aucet66" path="res://assets/CryptoFuse/Fuses/slot_empty.png" id="3_a8pvx"]
+
+[node name="Toolbox_Slot" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_x0bp7")
+
+[node name="SlotEmpty" type="Sprite2D" parent="."]
+texture = ExtResource("3_a8pvx")

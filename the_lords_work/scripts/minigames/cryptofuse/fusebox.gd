@@ -1,5 +1,6 @@
-extends Node2D
-@export var slot_scene: PackedScene
+extends Control
+@export var box_slot_scene: PackedScene
+@export var toolbox_slot_scene: PackedScene
 @export var fusebox_pos: Vector2
 @export var toolbox_pos: Vector2
 @export var fuse_scene: PackedScene
@@ -30,8 +31,8 @@ func spawn_box_fuses(start_pos: Vector2, num_broken: int, x_spawn: int, y_spawn:
 	var fuse_num = 0
 	for x in range(x_spawn):
 		for y in range(y_spawn):
-			var slot = slot_scene.instantiate()
-			slot.spawn(0, cur_spawn_pos)
+			var slot = box_slot_scene.instantiate()
+			slot.spawn(cur_spawn_pos)
 			slot.add_to_group("box_slots")
 			add_child(slot)
 			
@@ -43,6 +44,7 @@ func spawn_box_fuses(start_pos: Vector2, num_broken: int, x_spawn: int, y_spawn:
 			
 			fuse.add_to_group("box_fuses")
 			add_child(fuse)
+			fuse.set_slot(slot)
 			
 			fuse_num += 1
 			
@@ -88,8 +90,8 @@ func spawn_toolbox_fuses(start_pos: Vector2, num_fuses: int, num_broken: int, x_
 	var fuse_num = 0
 	for x in range(x_spawn):
 		for y in range(y_spawn):
-			var slot = slot_scene.instantiate()
-			slot.spawn(1, cur_spawn_pos)
+			var slot = toolbox_slot_scene.instantiate()
+			slot.spawn(cur_spawn_pos)
 			slot.add_to_group("toolbox_slots")
 			add_child(slot)
 			
@@ -106,6 +108,7 @@ func spawn_toolbox_fuses(start_pos: Vector2, num_fuses: int, num_broken: int, x_
 				
 				
 				fuse.add_to_group("toolbox_fuses")
+				fuse.set_slot(slot)
 				add_child(fuse)
 			
 			fuse_num += 1
