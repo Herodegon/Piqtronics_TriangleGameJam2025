@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://8cdtokb3t8wb"]
+
+[ext_resource type="Script" path="res://scripts/minigames/cryptofuse/Fuse Assembly.gd" id="1_v5jx5"]
+[ext_resource type="PackedScene" uid="uid://y5jnhtow66j7" path="res://scenes/minigames/cryptofuse/box_slot.tscn" id="2_nluwv"]
+[ext_resource type="PackedScene" uid="uid://u6scxdctahjn" path="res://scenes/minigames/cryptofuse/Fuse.tscn" id="2_vatdl"]
+
+[node name="Fuse Assembly" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v5jx5")
+fuse_scene = ExtResource("2_vatdl")
+
+[node name="Box_Slot" parent="." instance=ExtResource("2_nluwv")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1

@@ -1,16 +1,18 @@
-[gd_scene load_steps=5 format=3 uid="uid://8ogowi8iodp6"]
+[gd_scene load_steps=3 format=3 uid="uid://8ogowi8iodp6"]
 
 [ext_resource type="Script" path="res://scripts/minigames/cryptofuse/fusebox.gd" id="1_l2pu5"]
-[ext_resource type="PackedScene" uid="uid://y5jnhtow66j7" path="res://scenes/minigames/cryptofuse/box_slot.tscn" id="2_ajw8j"]
-[ext_resource type="PackedScene" uid="uid://ocpqcidrh1nd" path="res://scenes/minigames/cryptofuse/toolbox_slot.tscn" id="3_qwcv2"]
-[ext_resource type="PackedScene" uid="uid://u6scxdctahjn" path="res://scenes/minigames/cryptofuse/Fuse.tscn" id="4_7knju"]
+[ext_resource type="PackedScene" uid="uid://8cdtokb3t8wb" path="res://scenes/minigames/cryptofuse/fuse_assembly.tscn" id="2_5unip"]
 
-[node name="Fusebox" type="Control" groups=["box_fuses", "box_slots", "toolbox_fuses", "toolbox_slots"]]
+[node name="Fusebox" type="Control" groups=["box_assemblies", "box_fuses", "box_slots", "toolbox_assemblies", "toolbox_fuses", "toolbox_slots"]]
 layout_mode = 3
 anchors_preset = 0
+mouse_filter = 1
 script = ExtResource("1_l2pu5")
-box_slot_scene = ExtResource("2_ajw8j")
-toolbox_slot_scene = ExtResource("3_qwcv2")
+fuse_assembly_scene = ExtResource("2_5unip")
 fusebox_pos = Vector2(90, 90)
 toolbox_pos = Vector2(1200, 270)
-fuse_scene = ExtResource("4_7knju")
+
+[node name="Problems" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

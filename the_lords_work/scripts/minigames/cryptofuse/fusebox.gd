@@ -1,9 +1,7 @@
 extends Control
-@export var box_slot_scene: PackedScene
-@export var toolbox_slot_scene: PackedScene
+@export var fuse_assembly_scene: PackedScene
 @export var fusebox_pos: Vector2
 @export var toolbox_pos: Vector2
-@export var fuse_scene: PackedScene
 # color, type
 var broken_fuses = []
 
@@ -31,25 +29,16 @@ func spawn_box_fuses(start_pos: Vector2, num_broken: int, x_spawn: int, y_spawn:
 	var fuse_num = 0
 	for x in range(x_spawn):
 		for y in range(y_spawn):
-			var slot = box_slot_scene.instantiate()
-			slot.spawn(1, cur_spawn_pos)
-			slot.add_to_group("box_slots")
-			add_child(slot)
-			
-			var fuse = fuse_scene.instantiate()
-			
-			fuse.randomize(is_fuse_good[fuse_num])
+			var assembly: Control = fuse_assembly_scene.instantiate()
+			assembly.generate_slot(true)
+			assembly.position = cur_spawn_pos
+			var fuse: Control = assembly.generate_random_fuse(is_fuse_good[fuse_num])
 			if not fuse.good:
 				broken_fuses.append([fuse.cover_color, fuse.type])
+			assembly.add_to_group("box_assemblies")
+			add_child(assembly)		
 			
-			fuse.add_to_group("box_fuses")
-			slot.set_fuse_type(fuse.cover_color, fuse.type)
-			slot.add_fuse(fuse)
-
-			
-			
-			fuse_num += 1
-			
+			fuse_num += 1			
 			cur_spawn_pos.y += 90
 		
 		cur_spawn_pos.x += 90
@@ -92,27 +81,20 @@ func spawn_toolbox_fuses(start_pos: Vector2, num_fuses: int, num_broken: int, x_
 	var fuse_num = 0
 	for x in range(x_spawn):
 		for y in range(y_spawn):
-			var slot = box_slot_scene.instantiate()
-			slot.spawn(0, cur_spawn_pos)
-			slot.add_to_group("toolbox_slots")
-			add_child(slot)
-			
+			var assembly: Control = fuse_assembly_scene.instantiate()
+			assembly.generate_slot(0)
+			assembly.position = cur_spawn_pos
 			if is_fuse_real[fuse_num]:
-				
-				var fuse = fuse_scene.instantiate()
-				fuse.randomize(1)
 				if is_fuse_fixer[fuse_num]:
 					var fuse_index = randi() % broken_fuses.size()
 					var fuse_params = broken_fuses.pop_at(fuse_index)
-					fuse.set_color(fuse_params[0])
-					fuse.set_type(fuse_params[1])
-					fuse.set_state(1)					
+					assembly.generate_fuse(fuse_params[0], fuse_params[1], 1)
+				else:
+					assembly.generate_random_fuse(1)
 				
-				
-				fuse.add_to_group("toolbox_fuses")
-				slot.set_fuse_type(fuse.cover_color, fuse.type)
-				slot.add_fuse(fuse)
-			
+			assembly.add_to_group("toolbox_assemblies")
+			add_child(assembly)
+					
 			fuse_num += 1
 			
 			cur_spawn_pos.y += 90
@@ -121,11 +103,8 @@ func spawn_toolbox_fuses(start_pos: Vector2, num_fuses: int, num_broken: int, x_
 		cur_spawn_pos.y = start_pos.y
 	print(broken_fuses)
 
+
 func _ready():
-	spawn_box_fuses(fusebox_pos, 10, 10,10)
+	
+	spawn_box_fuses(fusebox_pos, 10, 5, 5)
 	spawn_toolbox_fuses(toolbox_pos, 15, 10, 5, 5)
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

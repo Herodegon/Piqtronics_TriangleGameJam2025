@@ -1,15 +1,24 @@
-[gd_scene load_steps=5 format=3 uid="uid://y5jnhtow66j7"]
+[gd_scene load_steps=4 format=3 uid="uid://y5jnhtow66j7"]
 
 [ext_resource type="Script" path="res://scripts/minigames/cryptofuse/box_slot.gd" id="1_p7ia6"]
 [ext_resource type="Texture2D" uid="uid://dec38d6aeruy6" path="res://assets/CryptoFuse/Fuses/slot.png" id="1_uyuud"]
-[ext_resource type="PackedScene" uid="uid://u6scxdctahjn" path="res://scenes/minigames/cryptofuse/Fuse.tscn" id="2_mu0ck"]
 [ext_resource type="Texture2D" uid="uid://dkhpb8aucet66" path="res://assets/CryptoFuse/Fuses/slot_empty.png" id="3_lqppj"]
 
 [node name="Box_Slot" type="Control"]
 layout_mode = 3
-anchors_preset = 0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -576.0
+offset_top = -324.0
+offset_right = -576.0
+offset_bottom = -324.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_p7ia6")
-fuse_scene = ExtResource("2_mu0ck")
 
 [node name="Slot" type="TextureRect" parent="."]
 layout_mode = 0

@@ -1,3 +1,4 @@
+
 extends Control
 
 @export var cover_color: Color
@@ -34,6 +35,7 @@ func set_state(s: int):
 
 
 func randomize(s: int):
+	z_index = 100  # Bring Fuse above everything else
 	var colors = [Color.BLUE, Color.DARK_GREEN, Color.DARK_RED, Color.DARK_VIOLET, Color.DARK_GOLDENROD]
 	var color_choice = colors[randi() % colors.size()]
 	set_color(color_choice)
@@ -53,8 +55,6 @@ func randomize(s: int):
 		set_state(randi() % 2)
 	else:
 		set_state(s)
-	
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	
