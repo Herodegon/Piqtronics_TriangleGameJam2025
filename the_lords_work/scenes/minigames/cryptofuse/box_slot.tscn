@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://y5jnhtow66j7"]
+[gd_scene load_steps=4 format=3 uid="uid://y5jnhtow66j7"]
 
 [ext_resource type="Script" path="res://scripts/minigames/cryptofuse/box_slot.gd" id="1_p7ia6"]
 [ext_resource type="Texture2D" uid="uid://dec38d6aeruy6" path="res://assets/CryptoFuse/Fuses/slot.png" id="1_uyuud"]
+[ext_resource type="Texture2D" uid="uid://dkhpb8aucet66" path="res://assets/CryptoFuse/Fuses/slot_empty.png" id="3_lqppj"]
 
 [node name="Box_Slot" type="Control"]
 layout_mode = 3
@@ -9,4 +10,7 @@ anchors_preset = 0
 script = ExtResource("1_p7ia6")
 
 [node name="Slot" type="Sprite2D" parent="."]
+texture = ExtResource("3_lqppj")
+
+[node name="Contacts" type="Sprite2D" parent="."]
 texture = ExtResource("1_uyuud")
