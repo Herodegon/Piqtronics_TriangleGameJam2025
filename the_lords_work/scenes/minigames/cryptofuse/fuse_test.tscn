@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://h6ld6pks5hie"]
+
+[ext_resource type="Script" path="res://scripts/minigames/cryptofuse/FuseTest.gd" id="1_1jycm"]
+[ext_resource type="PackedScene" uid="uid://u6scxdctahjn" path="res://scenes/minigames/cryptofuse/Fuse.tscn" id="2_y5voc"]
+
+[node name="FuseTest" type="Node2D"]
+script = ExtResource("1_1jycm")
+fuse_scene = ExtResource("2_y5voc")
+
+[node name="FuseSpawner" type="Node2D" parent="."]

@@ -1,74 +1,60 @@
-[gd_scene load_steps=8 format=3 uid="uid://u6scxdctahjn"]
+[gd_scene load_steps=5 format=3 uid="uid://u6scxdctahjn"]
 
 [ext_resource type="Script" path="res://Scripts/Minigames/cryptofuse/Fuse.gd" id="1_wph1i"]
-[ext_resource type="Texture2D" uid="uid://bjrvs0ihnc463" path="res://assets/CryptoFuse/Fuses/wire_bad.png" id="2_vcs38"]
 [ext_resource type="Texture2D" uid="uid://c5yayqt346wxx" path="res://assets/CryptoFuse/Fuses/wire_good.png" id="3_rggvk"]
 [ext_resource type="Texture2D" uid="uid://cjoo0lm0nmufy" path="res://assets/CryptoFuse/Fuses/Pins.png" id="4_te2v4"]
 [ext_resource type="Texture2D" uid="uid://cg6bsb6k0fgc6" path="res://assets/CryptoFuse/Fuses/cover_border.png" id="5_b7kxy"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_s1dbr"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("2_vcs38")
-}],
-"loop": true,
-"name": &"bad",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_rggvk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_vcs38")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_rggvk")
-}],
-"loop": true,
-"name": &"good",
-"speed": 5.0
-}]
-
-[sub_resource type="ImageTexture" id="ImageTexture_tbymk"]
-
-[node name="Fuse" type="Node2D"]
+[node name="Fuse" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
 script = ExtResource("1_wph1i")
 
-[node name="Wire" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_s1dbr")
+[node name="Type_text" type="Label" parent="."]
+z_index = 4
+layout_mode = 0
+offset_left = 25.0
+offset_top = 13.0
+offset_right = 65.0
+offset_bottom = 36.0
+text = "C30"
 
-[node name="Pins" type="Sprite2D" parent="."]
+[node name="Pins" type="TextureRect" parent="."]
 z_index = 4
 y_sort_enabled = true
+layout_mode = 1
 texture = ExtResource("4_te2v4")
 
-[node name="CoverBorder" type="Sprite2D" parent="."]
-z_index = 3
+[node name="CoverBorder" type="TextureRect" parent="."]
+z_index = 4
+layout_mode = 1
 texture = ExtResource("5_b7kxy")
 
 [node name="Cover" type="ColorRect" parent="."]
+z_index = 3
+y_sort_enabled = true
+layout_mode = 1
+offset_right = 80.0
+offset_bottom = 50.0
+color = Color(0.14902, 0.282353, 1, 0.666667)
+
+[node name="Break" type="ColorRect" parent="."]
 z_index = 2
 y_sort_enabled = true
-offset_left = -160.0
-offset_top = -25.0
-offset_right = 160.0
-offset_bottom = 25.0
-color = Color(0.14902, 0.286275, 1, 0.866667)
+layout_mode = 1
+offset_right = 20.0
+offset_bottom = 26.0
+color = Color(0.14902, 0.282353, 1, 1)
 
-[node name="Type_text" type="RichTextLabel" parent="."]
-z_index = 4
-offset_left = 67.0
-offset_top = 1.0
-offset_right = 107.0
-offset_bottom = 41.0
-text = "C30"
+[node name="WireGood" type="TextureRect" parent="."]
+z_index = 1
+layout_mode = 1
+texture = ExtResource("3_rggvk")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("ImageTexture_tbymk")
+[node name="Backplate" type="ColorRect" parent="."]
+y_sort_enabled = true
+layout_mode = 1
+offset_right = 80.0
+offset_bottom = 50.0
+color = Color(0.14902, 0.282353, 1, 1)
