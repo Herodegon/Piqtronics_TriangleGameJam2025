@@ -4,14 +4,16 @@ extends Control
 @export var cover_opacity: float = 0.5
 @export var type: int
 @export var good: int
+var break_pos
 
 #-27 to 
 func set_type(t: int):
 	type = t
 	$Type_text.text = "C%d" % t
 func set_break_pos(p: int):
-	$Break.position.y = -13
+	$Break.position.y = 13
 	$Break.position.x = p
+	break_pos = p
 
 func set_color(c: Color):
 	cover_color = c
@@ -31,10 +33,6 @@ func set_state(s: int):
 		$Break.visible = true
 
 
-func _get_drag_data(_at_position):
-	return self
-	
-
 func randomize(s: int):
 	var colors = [Color.BLUE, Color.DARK_GREEN, Color.DARK_RED, Color.DARK_VIOLET, Color.DARK_GOLDENROD]
 	var color_choice = colors[randi() % colors.size()]
@@ -42,11 +40,13 @@ func randomize(s: int):
 	
 	set_opacity(cover_opacity)
 	
+	
+	
 	var t = ((randi() % 9) + 1) * 10
 	set_type(t)	
 	
-	var break_pos = randi() % 61 - 40
-	set_break_pos((break_pos))
+	break_pos = randi() % 51
+	set_break_pos(break_pos)
 	
 	
 	if s == 2:
@@ -57,4 +57,4 @@ func randomize(s: int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
