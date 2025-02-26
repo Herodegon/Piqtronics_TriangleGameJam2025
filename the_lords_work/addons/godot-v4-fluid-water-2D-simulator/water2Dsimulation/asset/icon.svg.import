@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bppso0iie13os"
-path="res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+uid="uid://bdfcpwmcrcmis"
+path="res://.godot/imported/icon.svg-387685a11088d6477e7be7440e2f0e18.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://icon.svg"
-dest_files=["res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"]
+source_file="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/asset/icon.svg"
+dest_files=["res://.godot/imported/icon.svg-387685a11088d6477e7be7440e2f0e18.ctex"]
 
 [params]
 

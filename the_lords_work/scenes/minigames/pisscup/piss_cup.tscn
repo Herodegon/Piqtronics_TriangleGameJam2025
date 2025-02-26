@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ipcprpu5jh6y"]
+
+[ext_resource type="Script" path="res://scripts/minigames/pisscup/piss_cup.gd" id="1_nhi32"]
+[ext_resource type="PackedScene" uid="uid://cor8igwxetpgn" path="res://addons/dynamic_water_2d/water.tscn" id="2_k8o20"]
+
+[node name="PissCup" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nhi32")
+
+[node name="Water" parent="." node_paths=PackedStringArray("top_left_marker", "bottom_right_marker") instance=ExtResource("2_k8o20")]
+top_left_marker = NodePath("top_left")
+bottom_right_marker = NodePath("bottom_right")
+waves_enabled = false
+
+[node name="top_left" type="Marker2D" parent="Water"]
+position = Vector2(-1, 2)
+
+[node name="bottom_right" type="Marker2D" parent="Water"]
+position = Vector2(427, 262)
