@@ -1,11 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cwts6gytmp6ot"]
+[gd_scene load_steps=4 format=3 uid="uid://7008dfjxq6bf"]
 
-[ext_resource type="Script" path="res://scripts/minigames/drunkman/drunkman.gd" id="1_q1ta4"]
+[ext_resource type="Script" path="res://scripts/minigames/drunkman/drunkman.gd" id="1"]
 [ext_resource type="Texture2D" uid="uid://cgn7j40ybk3ed" path="res://assets/DrunkMan/wendouree.jpg" id="2"]
 [ext_resource type="Script" path="res://scripts/minigames/drunkman/piss_path.gd" id="2_xevs3"]
 
 [node name="DrunkMan" type="Node2D"]
-script = ExtResource("1_q1ta4")
+script = ExtResource("1")
 
 [node name="PissPath" type="Path2D" parent="."]
 script = ExtResource("2_xevs3")
@@ -27,12 +27,12 @@ text = "Draw Mode. Right click to switch"
 offset_left = 0.465698
 offset_top = 0.465942
 offset_right = 1920.47
-offset_bottom = 996.466
+offset_bottom = 1080.47
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 transparent_bg = true
 handle_input_locally = false
 gui_disable_input = true
-size = Vector2i(1920, 996)
+size = Vector2i(1920, 1080)
 render_target_update_mode = 4

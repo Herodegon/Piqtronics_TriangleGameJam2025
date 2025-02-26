@@ -17,42 +17,56 @@ enum mode {
 var current_mode = mode.draw
 var piss_material
 
-func generate_piss_curve(top_left, bottom_right, max_piss_length, max_control_radius):
-	var p1 = Vector2(randf_range(top_left.x, bottom_right.x), randf_range(top_left.y, bottom_right.y))
-	var cord_angle = randf() * PI
-	while cord_angle == 0:
-		cord_angle = randf() * PI
-	var p2 = p1 + Vector2.from_angle(cord_angle) * randf_range(5, max_piss_length)
-	
-	var is_going_right = cord_angle < PI / 2
-	var i_angle
-	var o_angle
-	if is_going_right:
-		# Generate a random angle between -PI/2 and PI/2
-		i_angle = randf_range(-PI / 2, PI / 2)
-		# Generate a random angle between PI/2 and 3PI/2
-		o_angle = randf_range(PI / 2, 3 * PI / 2)
-	else:
-		i_angle = randf_range(PI / 2, 3 * PI / 2)
-		o_angle = randf_range(-PI / 2, PI / 2)
-	
-	var out_point = p1 + Vector2.from_angle(i_angle) * randf_range(0, max_control_radius)
-	var in_point = p2 + Vector2.from_angle(o_angle) * randf_range(0, max_control_radius)
-	
+func io_point_helper(point, max_control_radius):
+	var angle = randf() * PI
+	var radius = randf() * max_control_radius
+	var out_point = point + Vector2.from_angle(angle) * radius/2
+	var in_point = point - Vector2.from_angle(angle) * radius/2
+	return [in_point, out_point]
+
+func generate_io_points(point, max_control_radius, top_left, bottom_right):
+	var points = io_point_helper(point, max_control_radius)
+	var in_point = points[0]
+	var out_point = points[1]
+
+	while (
+			out_point.x < top_left.x
+			or out_point.x > bottom_right.x 
+			or out_point.y < top_left.y 
+			or out_point.y > bottom_right.y 
+			or in_point.x < top_left.x 
+			or in_point.x > bottom_right.x 
+			or in_point.y < top_left.y 
+			or in_point.y > bottom_right.y
+		):
+		points = io_point_helper(point, max_control_radius)
+		in_point = points[0]
+		out_point = points[1]
+	return [in_point, out_point]
+
+func generate_piss_curve_continuous(num_points, top_left=Vector2(0,0), bottom_right=Vector2(1920,996), max_point_dist=500, max_control_radius=7, bake_interval=0.1):
 	var curve = Curve2D.new()
-	curve.add_point(p1, Vector2(0,0), out_point)
-	curve.add_point(p2, in_point)
+	var last_point = Vector2(randf_range(top_left.x, bottom_right.x), randf_range(top_left.y, bottom_right.y))
+	var in_point = Vector2(0, 0)
+	var out_point = Vector2(0, 0)
+	curve.add_point(last_point, out_point, in_point)
+
+	for i in range(num_points-1):
+		var next_point = last_point + Vector2.from_angle(randf_range(0, 2 * PI)) * randf_range(0, max_point_dist)
+		while (next_point.x < top_left.x or next_point.x > bottom_right.x or next_point.y < top_left.y or next_point.y > bottom_right.y):
+			next_point = last_point + Vector2.from_angle(randf_range(0, 2 * PI)) * randf_range(0, max_point_dist)
+		var io_points = generate_io_points(next_point, max_control_radius, top_left, bottom_right)
+		in_point = io_points[0]
+		out_point = io_points[1]
+		curve.add_point(next_point, in_point, out_point)
+		
+		last_point = next_point
+	curve.bake_interval = bake_interval
 	return curve
 
-
-
-
-
-
-
-func generate_piss(num_lines):
+func generate_piss(num_lines, points_per_line = 10):
 	for i in range(num_lines):
-		var curve: Curve2D = generate_piss_curve(Vector2(0, 0), $SubViewportContainer/SubViewport.size / 2, 550, 3)
+		var curve: Curve2D = generate_piss_curve_continuous(points_per_line)
 		curve.bake_interval = 0.1
 		var line = Line2D.new()
 		line.material = piss_material
@@ -62,37 +76,6 @@ func generate_piss(num_lines):
 		line.points = points
 		$SubViewportContainer/SubViewport.add_child(line)
 
-func draw_piss(num_bezier_points, bake_interval, piss_width):
-	var line = Line2D.new()
-	line.material = piss_material
-	line.default_color = Color.YELLOW
-	line.width = piss_width
-	line.points = generate_piss_points(num_bezier_points, bake_interval)
-	$SubViewportContainer/SubViewport.add_child(line)
-
-func generate_bezier_point(point_range, max_radius):
-	var p = Vector2(randf_range(0, point_range.x), randf_range(0, point_range.y))
-	var angle = randf() * 2 * PI
-	var radius = randf() * max_radius
-	
-	var i = p + Vector2.from_angle(angle) * radius
-
-	angle = randf() * 2 * PI
-	radius = randf() * max_radius
-	var o = p + Vector2.from_angle(angle) * radius
-	return [p, i, o]
-	
-
-func generate_piss_points(num_bezier_points, bake_interval):
-	var curve: Curve2D = Curve2D.new()
-	for i in range(num_bezier_points):
-		var points = generate_bezier_point($SubViewportContainer/SubViewport.size - Vector2i(-100, -100), 20)
-		curve.add_point(points[0], points[1], points[2])
-	curve.bake_interval = bake_interval
-
-	return curve.get_baked_points()
-
-
 func _ready():
 	piss_material = CanvasItemMaterial.new()
 	piss_material.blend_mode = CanvasItemMaterial.BLEND_MODE_MIX
@@ -100,7 +83,7 @@ func _ready():
 	draw_material.blend_mode = CanvasItemMaterial.BLEND_MODE_MIX
 	erase_material = CanvasItemMaterial.new()
 	erase_material.blend_mode = CanvasItemMaterial.BLEND_MODE_SUB
-	generate_piss(5)
+	generate_piss(10)
 
 func _input(event):
 	if event is InputEventMouseButton:
