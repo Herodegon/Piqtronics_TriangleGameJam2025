@@ -7,17 +7,18 @@ uniform vec4 PISS_COLOR : source_color = vec4(0.0, 0.0, 0.545098, 1.0);
 uniform float color_detect_threshold : hint_range(0.0, 5, 0.1) = 2.5;
 
 void fragment() {
-	vec4 PIXEL = textureLod(SCREEN_TEXTURE,SCREEN_UV,1.5).rgba;
-	if (//step(color_detect_threshold, PIXEL) == TG_COLOR) {
-		PIXEL.r +
-		PIXEL.g +
-		PIXEL.b
-		> color_detect_threshold) {
-		COLOR = PISS_COLOR;
-	}
-	else {
-		COLOR = vec4(0.0, 0.0, 0.0, 0.0);
-	}
+	// vec4 PIXEL = textureLod(SCREEN_TEXTURE,SCREEN_UV,1.5).rgba;
+	// if (//step(color_detect_threshold, PIXEL) == TG_COLOR) {
+	// 	PIXEL.r +
+	// 	PIXEL.g +
+	// 	PIXEL.b
+	// 	> color_detect_threshold) {
+	// 	COLOR = PISS_COLOR;
+	// }
+	// else {
+	// 	COLOR = vec4(0.0, 0.0, 0.0, 0.0);
+	// }
+    COLOR = vec4(0.0, 0.0, 0.0, 0.0);
 }
 
 //bool colorMatch(vec3 c1, vec3 c2, float maxDiff) {

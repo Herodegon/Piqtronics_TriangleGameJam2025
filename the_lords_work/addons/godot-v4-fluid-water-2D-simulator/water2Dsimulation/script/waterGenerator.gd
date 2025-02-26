@@ -2,15 +2,19 @@ extends Node2D
 var objects: Array[Array] = []
 
 @onready var cir_shape := CircleShape2D.new()
+@export var spawnRad: float = 10
 @export var tex: Texture2D
-@export var spawnRad: float
-var texSize: float = 48
+@export var piss_color: Color = Color(1.0, 1.0, 0.0, 1.0)
+@export var ball_rad: float = 8
 var pointer: bool = true
+@export var spawn_count: int = 1
 @onready var attrForce: float = get_parent().attrForce
 
 func _ready() -> void:
-	cir_shape.radius = 8
+	cir_shape.radius = ball_rad
 	cir_shape.custom_solver_bias = 0.1
+
+
 	#await get_tree().create_timer(3).timeout
 	#while Engine.get_frames_per_second() > 90:
 		#create_object(global_position + Vector2.from_angle(randf()*TAU)*spawnRad*randf())
@@ -26,11 +30,20 @@ func create_object(pos: Vector2):
 	ps.body_set_mode(object, ps.BODY_MODE_RIGID_LINEAR)
 	var trans := Transform2D(0, pos)
 	ps.body_set_state(object, ps.BODY_STATE_TRANSFORM, trans)
+	
 
 	var rs := RenderingServer
 	var img := rs.canvas_item_create()
 	rs.canvas_item_set_parent(img, get_canvas_item())
-	rs.canvas_item_add_texture_rect(img, Rect2(texSize/-2, texSize/-2, texSize, texSize), tex)
+	rs.canvas_item_add_circle(img, Vector2.ZERO, ball_rad * 4, piss_color, 0)
+	# var scaled_tex_size = texSize * ball_scale
+	# rs.canvas_item_add_texture_rect(
+	# 	img, 
+	# 	Rect2(Vector2(-scaled_tex_size / 2, -scaled_tex_size / 2), Vector2(scaled_tex_size, scaled_tex_size)),
+	# 	tex,
+	# 	false,
+	# 	piss_color
+	# )
 	rs.canvas_item_set_transform(img, trans)
 
 	objects.append([object, img])
@@ -66,4 +79,5 @@ func _process(delta: float) -> void:
 	attrForce = get_parent().attrForce
 	pointer = get_parent().pointer
 	if Input.is_action_pressed("ui_accept"):
-		create_object(global_position + Vector2(randf()-0.5, randf()-0.5).normalized()*spawnRad*randf())
+		for i in range(spawn_count):
+			create_object(global_position + Vector2(randf()-0.5, randf()-0.5).normalized()*spawnRad*randf())
