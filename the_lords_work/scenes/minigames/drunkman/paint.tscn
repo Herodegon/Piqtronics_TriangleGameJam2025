@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dv0muw1yuduud"]
+
+[ext_resource type="Script" path="res://scripts/minigames/drunkman/paint.gd" id="1_ueh16"]
+
+[node name="Paint" type="Node2D"]
+script = ExtResource("1_ueh16")
+
+[node name="Line2D" type="Line2D" parent="."]
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
