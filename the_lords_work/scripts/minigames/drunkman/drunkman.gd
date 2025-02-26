@@ -17,9 +17,50 @@ enum mode {
 var current_mode = mode.draw
 var piss_material
 
+func generate_piss_curve(top_left, bottom_right, max_piss_length, max_control_radius):
+	var p1 = Vector2(randf_range(top_left.x, bottom_right.x), randf_range(top_left.y, bottom_right.y))
+	var cord_angle = randf() * PI
+	while cord_angle == 0:
+		cord_angle = randf() * PI
+	var p2 = p1 + Vector2.from_angle(cord_angle) * randf_range(5, max_piss_length)
+	
+	var is_going_right = cord_angle < PI / 2
+	var i_angle
+	var o_angle
+	if is_going_right:
+		# Generate a random angle between -PI/2 and PI/2
+		i_angle = randf_range(-PI / 2, PI / 2)
+		# Generate a random angle between PI/2 and 3PI/2
+		o_angle = randf_range(PI / 2, 3 * PI / 2)
+	else:
+		i_angle = randf_range(PI / 2, 3 * PI / 2)
+		o_angle = randf_range(-PI / 2, PI / 2)
+	
+	var out_point = p1 + Vector2.from_angle(i_angle) * randf_range(0, max_control_radius)
+	var in_point = p2 + Vector2.from_angle(o_angle) * randf_range(0, max_control_radius)
+	
+	var curve = Curve2D.new()
+	curve.add_point(p1, Vector2(0,0), out_point)
+	curve.add_point(p2, in_point)
+	return curve
+
+
+
+
+
+
+
 func generate_piss(num_lines):
 	for i in range(num_lines):
-		draw_piss(5, 1, randi() % 10 + 5)
+		var curve: Curve2D = generate_piss_curve(Vector2(0, 0), $SubViewportContainer/SubViewport.size / 2, 550, 3)
+		curve.bake_interval = 0.1
+		var line = Line2D.new()
+		line.material = piss_material
+		line.default_color = Color.YELLOW
+		line.width = randf() * 10 + 5
+		var points = curve.get_baked_points()
+		line.points = points
+		$SubViewportContainer/SubViewport.add_child(line)
 
 func draw_piss(num_bezier_points, bake_interval, piss_width):
 	var line = Line2D.new()
