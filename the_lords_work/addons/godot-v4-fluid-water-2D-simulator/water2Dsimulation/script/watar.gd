@@ -3,8 +3,8 @@ extends Node2D
 var pointer: bool = true
 var attrForce: float = 500
 
-func _draw() -> void:
-	draw_colored_polygon($map/CollisionPolygon2D.polygon, Color.BLACK)
+# func _draw() -> void:
+# 	draw_colored_polygon($map/CollisionPolygon2D.polygon, Color.BLACK)
 
 func _ready() -> void:
 	get_tree().paused = false

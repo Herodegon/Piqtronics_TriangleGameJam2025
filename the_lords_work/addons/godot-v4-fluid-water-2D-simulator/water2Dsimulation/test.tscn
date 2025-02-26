@@ -25,11 +25,6 @@ position = Vector2(576, 64)
 script = ExtResource("3_delej")
 target_area = Vector2(1300, 1300)
 
-[node name="map" type="StaticBody2D" parent="."]
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="map"]
-polygon = PackedVector2Array(-16, 648, 1168, 648, 1168, -504, 1032, 480, 768, 424, 760, -72, 624, 504, 1000, 632, 24, 616, 392, 480, 616, -120, 544, -56, 400, -24, 232, -64, 128, -168, -16, -504)
-
 [node name="watarGen" type="Marker2D" parent="." groups=["waterGenerator"]]
 position = Vector2(64, -512)
 script = ExtResource("1_5j75m")
