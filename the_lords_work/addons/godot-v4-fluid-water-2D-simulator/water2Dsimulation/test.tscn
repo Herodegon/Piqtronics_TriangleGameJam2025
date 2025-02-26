@@ -1,18 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://brfh7551nvc16"]
+[gd_scene load_steps=11 format=3 uid="uid://brfh7551nvc16"]
 
 [ext_resource type="Script" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/waterGenerator.gd" id="1_5j75m"]
 [ext_resource type="Script" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/watar.gd" id="1_bdveq"]
 [ext_resource type="Script" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/camera.gd" id="3_delej"]
 [ext_resource type="Texture2D" uid="uid://bdfcpwmcrcmis" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/asset/icon.svg" id="4_0stiv"]
 [ext_resource type="Script" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/pointer.gd" id="4_1to10"]
-[ext_resource type="Shader" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/waterEffect.gdshader" id="6_qhjgq"]
 [ext_resource type="Texture2D" uid="uid://m762u2jupu7y" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/asset/part.png" id="7_njyev"]
 [ext_resource type="Shader" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/pointer.gdshader" id="8_nbdm4"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_2v82y"]
-shader = ExtResource("6_qhjgq")
-shader_parameter/PISS_COLOR = Color(0.779603, 0.698526, 3.85046e-07, 1)
-shader_parameter/color_detect_threshold = 1.2
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ootnj"]
 shader = ExtResource("8_nbdm4")
@@ -29,15 +23,7 @@ script = ExtResource("1_bdveq")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(576, 64)
 script = ExtResource("3_delej")
-target_area = Vector2(1152, 1152)
-
-[node name="waterShader" type="Sprite2D" parent="Camera2D"]
-visible = false
-z_index = 1
-material = SubResource("ShaderMaterial_2v82y")
-position = Vector2(-0.00012207, 3.99998)
-scale = Vector2(9.25, 9.0625)
-texture = ExtResource("4_0stiv")
+target_area = Vector2(1300, 1300)
 
 [node name="map" type="StaticBody2D" parent="."]
 
