@@ -4,7 +4,7 @@ uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 
 uniform vec4 TG_COLOR : source_color = vec4(0.0, 0.0, 0.545098, 1.0);
 
-uniform float color_detect_threshold : hint_range(0.0, 1.0, 0.1) = 0.35;
+uniform float color_detect_threshold : hint_range(0.0, 5, 0.1) = 2.5;
 
 void fragment() {
 	vec4 PIXEL = textureLod(SCREEN_TEXTURE,SCREEN_UV,1.5).rgba;
@@ -13,11 +13,11 @@ void fragment() {
 		PIXEL.r +
 		PIXEL.g +
 		PIXEL.b
-		> 2.5) {
+		> color_detect_threshold) {
 		COLOR = vec4(0.0, 0.5, 0.7, 1.0);
 	}
 	else {
-		COLOR.a = 0.0;
+		COLOR = vec4(0.0, 0.0, 0.0, 0.0);
 	}
 }
 
