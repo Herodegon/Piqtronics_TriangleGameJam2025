@@ -6,6 +6,8 @@ var objects: Array[Array] = []
 @export var tex: Texture2D
 @export var piss_color: Color = Color(1.0, 1.0, 0.0, 1.0)
 @export var ball_rad: float = 8
+@export var piss_angle_range: float
+@export var piss_magnitude_range: Vector2 = Vector2(50, 200)
 var pointer: bool = true
 @export var spawn_count: int = 1
 @onready var attrForce: float = get_parent().attrForce
@@ -13,6 +15,7 @@ var pointer: bool = true
 func _ready() -> void:
 	cir_shape.radius = ball_rad
 	cir_shape.custom_solver_bias = 0.1
+	piss_angle_range = deg_to_rad(piss_angle_range)
 
 
 	#await get_tree().create_timer(3).timeout
@@ -47,6 +50,7 @@ func create_object(pos: Vector2):
 	rs.canvas_item_set_transform(img, trans)
 
 	objects.append([object, img])
+	return [object, img]
 
 func _physics_process(delta):
 	var index: int = 0
@@ -75,9 +79,15 @@ func _exit_tree():
 		RenderingServer.free_rid(img)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	attrForce = get_parent().attrForce
 	pointer = get_parent().pointer
-	if Input.is_action_pressed("ui_accept"):
-		for i in range(spawn_count):
-			create_object(global_position + Vector2(randf()-0.5, randf()-0.5).normalized()*spawnRad*randf())
+	var piss_force_mag = randf_range(piss_magnitude_range.x, piss_magnitude_range.y)
+	var piss_force_angle = randf_range(PI - piss_angle_range, PI + piss_angle_range)
+	var piss_force = Vector2.from_angle(piss_force_angle) * piss_force_mag
+
+	for i in range(spawn_count):
+		var pair = create_object(global_position + Vector2(randf()-0.5, randf()-0.5).normalized()*spawnRad*randf())
+		var object = pair[0]
+		PhysicsServer2D.body_apply_impulse(object, piss_force)
+

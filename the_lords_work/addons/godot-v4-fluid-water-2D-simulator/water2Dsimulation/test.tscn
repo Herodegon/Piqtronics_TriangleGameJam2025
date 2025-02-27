@@ -26,11 +26,13 @@ script = ExtResource("3_delej")
 target_area = Vector2(1300, 1300)
 
 [node name="watarGen" type="Marker2D" parent="." groups=["waterGenerator"]]
-position = Vector2(64, -512)
+position = Vector2(1127, 71)
 script = ExtResource("1_5j75m")
 tex = ExtResource("7_njyev")
-ball_rad = 2.0
-spawn_count = 4
+ball_rad = 1.0
+piss_angle_range = 5.0
+piss_magnitude_range = Vector2(50, 75)
+spawn_count = 15
 
 [node name="Label" type="Label" parent="."]
 z_index = 1
