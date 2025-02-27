@@ -10,7 +10,7 @@ var objects: Array[Array] = []
 @export var piss_magnitude_range: Vector2 = Vector2(50, 200)
 var pointer: bool = true
 @export var spawn_count: int = 1
-@onready var attrForce: float = get_parent().attrForce
+@export var attrForce: float = 1
 
 func _ready() -> void:
 	cir_shape.radius = ball_rad
@@ -70,7 +70,7 @@ func _physics_process(_delta):
 			if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and (get_global_mouse_position() - global_position).distance_to(trans.origin) < 60 * $"../UI/Icon".scale.x and not pointer:
 				PhysicsServer2D.body_set_constant_force(object, ((get_global_mouse_position() - global_position) - trans.origin).normalized()*attrForce)
 			else:
-				PhysicsServer2D.body_set_constant_force(object, Vector2.ZERO)
+				PhysicsServer2D.body_set_constant_force(object, ((get_global_mouse_position() - global_position) - trans.origin).normalized()*attrForce)
 		index += 1
 
 func _exit_tree():
@@ -82,7 +82,7 @@ func _exit_tree():
 
 
 func _process(_delta: float) -> void:
-	attrForce = get_parent().attrForce
+	# attrForce = get_parent().attrForce
 	pointer = get_parent().pointer
 	var piss_force_mag = randf_range(piss_magnitude_range.x, piss_magnitude_range.y)
 	var piss_force_angle = randf_range(PI - piss_angle_range, PI + piss_angle_range)

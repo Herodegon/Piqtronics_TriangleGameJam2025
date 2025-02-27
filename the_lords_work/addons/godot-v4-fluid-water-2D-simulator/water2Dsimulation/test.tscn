@@ -24,14 +24,14 @@ script = ExtResource("3_delej")
 target_area = Vector2(1300, 1300)
 
 [node name="watarGen" type="Marker2D" parent="." groups=["waterGenerator"]]
-position = Vector2(1127, 71)
+position = Vector2(1114, -164)
 script = ExtResource("1_5j75m")
 tex = ExtResource("7_njyev")
 piss_color = Color(0.435533, 0.435533, 0, 0.784314)
-ball_rad = 1.0
+ball_rad = 4.0
 piss_angle_range = 5.0
 piss_magnitude_range = Vector2(50, 60)
-spawn_count = 15
+spawn_count = 8
 
 [node name="Label" type="Label" parent="."]
 z_index = 1
@@ -91,18 +91,19 @@ lock_rotation = true
 script = ExtResource("4_1to10")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="UI/PissCup"]
-scale = Vector2(10, 10)
-polygon = PackedVector2Array(-12, -12, -11, -4, -10, 6, -9, 12, -6, 14, 5, 14, 9, 12, 9, 6, 10, -4, 10, -12, 8, -13, 9, -4, 8, 6, 8, 11, 0, 13, -8, 11, -9, 6, -10, -4, -11, -13)
+scale = Vector2(15, 15)
+polygon = PackedVector2Array(-12, -12, -9.5, 12.1, -1.06667, 14.5333, 8.2, 12.2, 11, -12, 9.4, -11.9, 7.4, 10.4667, 0.133333, 12.6667, -8.6, 10, -10.3333, -12.2667)
+
+[node name="Cup" type="Sprite2D" parent="UI/PissCup/CollisionPolygon2D"]
+self_modulate = Color(0.556863, 0.756863, 0.8, 0.356863)
+scale = Vector2(1, 1)
+texture = ExtResource("7_3lcdv")
 
 [node name="Cup_l2" type="Sprite2D" parent="UI/PissCup/CollisionPolygon2D"]
-modulate = Color(1, 1, 1, 0.498039)
+self_modulate = Color(0.380392, 0.733333, 0.733333, 0.572549)
 z_index = 2
 scale = Vector2(1, 1)
 texture = ExtResource("7_6go1g")
-
-[node name="Cup" type="Sprite2D" parent="UI/PissCup/CollisionPolygon2D"]
-scale = Vector2(1, 1)
-texture = ExtResource("7_3lcdv")
 
 [node name="Timer" type="Timer" parent="UI/PissCup"]
 wait_time = 0.25

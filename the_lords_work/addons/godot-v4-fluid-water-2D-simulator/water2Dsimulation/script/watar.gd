@@ -14,8 +14,6 @@ func _process(delta: float) -> void:
 		get_tree().paused = true
 		get_tree().reload_current_scene()
 		return
-	if Input.is_action_just_pressed("ui_visible"):
-		$Label3.visible = not $Label3.visible
 	if Input.is_action_just_pressed("ui_pointer"):
 		pointer = not pointer
 		$UI/pointer.global_position = get_global_mouse_position()
