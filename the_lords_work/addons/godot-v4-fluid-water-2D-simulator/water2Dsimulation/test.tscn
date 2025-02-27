@@ -3,8 +3,9 @@
 [ext_resource type="Script" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/waterGenerator.gd" id="1_5j75m"]
 [ext_resource type="Script" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/watar.gd" id="1_bdveq"]
 [ext_resource type="Script" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/camera.gd" id="3_delej"]
-[ext_resource type="Texture2D" uid="uid://bdfcpwmcrcmis" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/asset/icon.svg" id="4_0stiv"]
 [ext_resource type="Script" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/pointer.gd" id="4_1to10"]
+[ext_resource type="Texture2D" uid="uid://cah67yim2jjid" path="res://assets/minigames/pisscup/art/cup.png" id="7_3lcdv"]
+[ext_resource type="Texture2D" uid="uid://do2brg3cq34pa" path="res://assets/minigames/pisscup/art/cup_l2.png" id="7_6go1g"]
 [ext_resource type="Texture2D" uid="uid://m762u2jupu7y" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/asset/part.png" id="7_njyev"]
 [ext_resource type="Shader" path="res://addons/godot-v4-fluid-water-2D-simulator/water2Dsimulation/script/pointer.gdshader" id="8_nbdm4"]
 
@@ -13,9 +14,6 @@ shader = ExtResource("8_nbdm4")
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bg3sf"]
 friction = 0.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_awbqw"]
-radius = 40.0
 
 [node name="supaWatar" type="Node2D"]
 script = ExtResource("1_bdveq")
@@ -29,9 +27,10 @@ target_area = Vector2(1300, 1300)
 position = Vector2(1127, 71)
 script = ExtResource("1_5j75m")
 tex = ExtResource("7_njyev")
+piss_color = Color(0.435533, 0.435533, 0, 0.784314)
 ball_rad = 1.0
 piss_angle_range = 5.0
-piss_magnitude_range = Vector2(50, 75)
+piss_magnitude_range = Vector2(50, 60)
 spawn_count = 15
 
 [node name="Label" type="Label" parent="."]
@@ -85,20 +84,27 @@ material = SubResource("ShaderMaterial_ootnj")
 scale = Vector2(3, 3)
 texture = ExtResource("7_njyev")
 
-[node name="pointer" type="RigidBody2D" parent="UI"]
+[node name="PissCup" type="RigidBody2D" parent="UI"]
 mass = 1000.0
 physics_material_override = SubResource("PhysicsMaterial_bg3sf")
 lock_rotation = true
 script = ExtResource("4_1to10")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="UI/pointer"]
-shape = SubResource("CircleShape2D_awbqw")
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="UI/PissCup"]
+scale = Vector2(10, 10)
+polygon = PackedVector2Array(-12, -12, -11, -4, -10, 6, -9, 12, -6, 14, 5, 14, 9, 12, 9, 6, 10, -4, 10, -12, 8, -13, 9, -4, 8, 6, 8, 11, 0, 13, -8, 11, -9, 6, -10, -4, -11, -13)
 
-[node name="Icon" type="Sprite2D" parent="UI/pointer/CollisionShape2D"]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("4_0stiv")
+[node name="Cup_l2" type="Sprite2D" parent="UI/PissCup/CollisionPolygon2D"]
+modulate = Color(1, 1, 1, 0.498039)
+z_index = 2
+scale = Vector2(1, 1)
+texture = ExtResource("7_6go1g")
 
-[node name="Timer" type="Timer" parent="UI/pointer"]
+[node name="Cup" type="Sprite2D" parent="UI/PissCup/CollisionPolygon2D"]
+scale = Vector2(1, 1)
+texture = ExtResource("7_3lcdv")
+
+[node name="Timer" type="Timer" parent="UI/PissCup"]
 wait_time = 0.25
 one_shot = true
 

@@ -39,6 +39,8 @@ func create_object(pos: Vector2):
 	var img := rs.canvas_item_create()
 	rs.canvas_item_set_parent(img, get_canvas_item())
 	rs.canvas_item_add_circle(img, Vector2.ZERO, ball_rad * 4, piss_color, 0)
+	rs.canvas_item_set_z_as_relative_to_parent(img, true)
+	rs.canvas_item_set_z_index(img, 1)
 	# var scaled_tex_size = texSize * ball_scale
 	# rs.canvas_item_add_texture_rect(
 	# 	img, 
@@ -52,7 +54,7 @@ func create_object(pos: Vector2):
 	objects.append([object, img])
 	return [object, img]
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	var index: int = 0
 	for pair in objects:
 		var object: RID = pair[0]
