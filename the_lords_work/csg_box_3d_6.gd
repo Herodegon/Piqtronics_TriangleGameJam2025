@@ -1,11 +1,9 @@
-extends Node
+extends CSGBox3D
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	if Input.is_action_just_pressed("sprint"):
-		$World/Matter/ColorBoxes/SpecialBox.material_override.albedo_texture.noise.offset.x += 100
-	
+	self.material_override.albedo_texture.noise.offset.x = 10
 	pass # Replace with function body.
 
 
